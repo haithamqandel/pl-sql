@@ -1,0 +1,15 @@
+CREATE or replace FUNCTION calculate_salary(p_date date , p_sal number) 
+   RETURN  NUMBER
+   IS 
+   H1 NUMBER(11);
+   H2 NUMBER(11);
+   BEGIN 
+      SELECT  (sysdate-p_date) , (last_day(p_date)-trunc(p_date,'MM'))
+      INTO   H1 , H2  
+      FROM scott.emp
+      where p_sal=sal;
+      RETURN (round(H1*(p_sal/H2))); 
+    END;
+    
+    select calculate_salary('17-NOV-81',5000)
+from dual
